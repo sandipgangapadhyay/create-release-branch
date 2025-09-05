@@ -34,8 +34,12 @@ jobs:
           
           BRANCH_NAME="release/${{ inputs.release_version }}"
           
-          # Create and push the release branch
-          git checkout -b "$BRANCH_NAME"
-          git push origin "$BRANCH_NAME"
-          
-          echo "Created release branch: $BRANCH_NAME"
+          # Check if branch exists
+          if git ls-remote --heads origin "$BRANCH_NAME" | grep -q "$BRANCH_NAME"; then
+            echo "Release branch $BRANCH_NAME already exists"
+          else
+            # Create and push the release branch
+            git checkout -b "$BRANCH_NAME"
+            git push origin "$BRANCH_NAME"
+            echo "Created release branch: $BRANCH_NAME"
+          fi
