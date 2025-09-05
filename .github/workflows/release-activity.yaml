@@ -1,0 +1,17 @@
+name: Release Branch Activity
+
+on:
+  push:
+    branches:
+      - 'release/**'
+  pull_request:
+    branches:
+      - 'release/**'
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.event.commits[0] != null)
+    steps:
+      - name: Say Hello
+        run: echo "Hello World"
