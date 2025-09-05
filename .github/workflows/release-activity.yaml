@@ -11,7 +11,7 @@ on:
 jobs:
   hello-world:
     runs-on: ubuntu-latest
-    #if: github.event.commits[0].message != 'Initial commit' && github.event.head_commit.message != 'Initial commit'
+    if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.event.commits != null && length(github.event.commits) > 0)
     steps:
       - name: Say Hello
         run: echo "Hello World"
